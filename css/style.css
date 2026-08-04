@@ -1,8 +1,6 @@
 /* ==========================================================
    AgriGest - style.css
-   Estilos provisórios da estrutura inicial do projeto.
-   A identidade visual definitiva será aplicada nas próximas
-   etapas (cores, fontes, layout responsivo, etc.).
+   Estilos responsivos do projeto (mobile-first).
    ========================================================== */
 
 * {
@@ -11,23 +9,58 @@
   box-sizing: border-box;
 }
 
+html {
+  /* evita rolagem horizontal indesejada em qualquer largura */
+  overflow-x: hidden;
+}
+
 body {
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.6;
   color: #222;
+  width: 100%;
 }
 
+/* ----------------------------------------------------------
+   Imagens responsivas
+   (regra global: qualquer imagem inserida no projeto já nasce
+   adaptada ao tamanho do contêiner)
+   ---------------------------------------------------------- */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ----------------------------------------------------------
+   Cabeçalho
+   ---------------------------------------------------------- */
 header {
-  padding: 20px;
+  padding: 16px;
   text-align: center;
   border-bottom: 1px solid #ccc;
 }
 
+header h1 {
+  font-size: 1.6rem;
+}
+
+header p {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* ----------------------------------------------------------
+   Menu de navegação
+   Mobile-first: itens empilhados verticalmente, ocupando
+   toda a largura disponível para facilitar o toque.
+   ---------------------------------------------------------- */
 nav ul {
   list-style: none;
   display: flex;
-  justify-content: center;
-  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
   padding: 10px;
   border-bottom: 1px solid #ccc;
 }
@@ -35,21 +68,139 @@ nav ul {
 nav a {
   text-decoration: none;
   color: #222;
+  display: block;
+  padding: 6px 10px;
 }
 
+nav a:hover,
+nav a:focus {
+  text-decoration: underline;
+}
+
+/* ----------------------------------------------------------
+   Conteúdo principal
+   ---------------------------------------------------------- */
 main {
+  width: 100%;
   max-width: 900px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 16px;
 }
 
 section {
-  margin-bottom: 30px;
+  margin-bottom: 24px;
 }
 
+section h2 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+section h3 {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+section p,
+section li {
+  font-size: 1rem;
+}
+
+section ul {
+  padding-left: 20px;
+}
+
+section a {
+  display: inline-block;
+  margin-top: 8px;
+  color: #2f6b2f;
+  font-weight: bold;
+}
+
+/* Cards de funcionalidades: em telas pequenas ficam empilhados
+   (comportamento padrão de bloco), sem necessidade de regra extra */
+article {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 14px;
+}
+
+/* ----------------------------------------------------------
+   Rodapé
+   ---------------------------------------------------------- */
 footer {
   text-align: center;
-  padding: 20px;
+  padding: 16px;
   border-top: 1px solid #ccc;
-  margin-top: 40px;
+  margin-top: 30px;
+  font-size: 0.9rem;
+}
+
+/* ============================================================
+   MEDIA QUERIES
+   ============================================================ */
+
+/* Tablets em diante (>= 600px): menu volta a ficar em linha,
+   textos ganham um pouco mais de respiro */
+@media (min-width: 600px) {
+  header h1 {
+    font-size: 2rem;
+  }
+
+  nav ul {
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  main {
+    padding: 24px;
+  }
+
+  section h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Desktops (>= 900px): grade de duas colunas para as seções de
+   funcionalidades, mais espaçamento geral */
+@media (min-width: 900px) {
+  main {
+    padding: 32px 20px;
+  }
+
+  #funcionalidades-resumo ul {
+    columns: 2;
+    column-gap: 30px;
+  }
+
+  /* Página de funcionalidades: sections viram cards em grade de
+     2 colunas para aproveitar melhor telas maiores */
+  main:has(#autenticacao) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    align-content: start;
+  }
+
+  main:has(#autenticacao) section {
+    margin-bottom: 0;
+  }
+}
+
+/* Telas muito pequenas (<= 400px): reduz um pouco mais o
+   espaçamento e o tamanho de fonte do cabeçalho para caber
+   confortavelmente sem cortar conteúdo */
+@media (max-width: 400px) {
+  header h1 {
+    font-size: 1.4rem;
+  }
+
+  header p {
+    font-size: 0.85rem;
+  }
+
+  main {
+    padding: 12px;
+  }
 }
